@@ -14,8 +14,8 @@ namespace ColoredToMono
 {
     public partial class Form1 : Form
     {
-        delegate void Mes(); // 1. Объявляем делегат
-        Mes mes = ColoredToBW;            // 2. Создаем переменную делегата
+        //delegate void Mes(); // 1. Объявляем делегат
+        //Mes mes = ColoredToBW;            // 2. Создаем переменную делегата
         //mes();                  // 4. Вызываем метод
 
         string[] fileNames;
