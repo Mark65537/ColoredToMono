@@ -88,7 +88,8 @@ namespace ColoredToMono
         private void b_export_Click(object sender, EventArgs e)
         {
             if (pB_mono.Image != null)
-            {                
+            {
+                sFD.FileName = l_fileName.Text;
                 if (sFD.ShowDialog() == DialogResult.OK)// если в диалоге была нажата кнопка ОК
                 {
                     try
@@ -119,7 +120,7 @@ namespace ColoredToMono
                     fileNames=oFD.FileNames;
                     safeFileNames = oFD.SafeFileNames;
                     l_fileName.Text = safeFileNames[0];
-                    pB_mono.ImageLocation = fileNames[0];// загружаем изображение
+                    //pB_mono.ImageLocation = fileNames[0];// загружаем изображение
 
                     if (fileNames.Length>1)
                     {
@@ -155,7 +156,7 @@ namespace ColoredToMono
             Stopwatch stopwatch = new Stopwatch();//создаем объект для того что бы засеч время
             stopwatch.Start();//засекаем время начала операции
 
-            func(fileNames[0]);
+            //func(fileNames[0]);
 
             stopwatch.Stop();//останавливаем счётчик            
             TimeSpan ts = stopwatch.Elapsed;
@@ -167,10 +168,12 @@ namespace ColoredToMono
             l_time.Text = elapsedTime;
         }
 
-        private void ColoredToBW(string img, byte level = 80)
+        private void ColoredToBW(string img)
         {
             Bitmap BWBitmap;
             Color BWColor;
+            byte level = (byte)NUpD_lavel.Value;
+            bool isBWImage=true;//для определеия что изображение изначально черно белое
             using (Bitmap bmp = new Bitmap(img))//присваивание нужно для того что бы можно было передать стринг
             {
                 BWBitmap = new Bitmap(bmp.Width, bmp.Height);                
@@ -180,16 +183,26 @@ namespace ColoredToMono
                     for (int x = 0; x < bmp.Width; x++)
                     {
                         Color p = bmp.GetPixel(x, y);
-                        bool isWhite = p.R >= level &&
-                                       p.G >= level &&
-                                       p.B >= level;
+                        if (p.A != 0) {
+                            if (p != Color.FromArgb(0, 0, 0) && p != Color.FromArgb(255, 255, 255))
+                            {
+                                bool isWhite = p.R >= level &&
+                                               p.G >= level &&
+                                               p.B >= level;
 
-                        BWColor = isWhite ? Color.White : Color.Black;
-                        BWBitmap.SetPixel(x, y, BWColor);
+                                BWColor = isWhite ? Color.White : Color.Black;
+                                BWBitmap.SetPixel(x, y, BWColor);//можно объединить
+                                isBWImage = false;
+                            }
+                            else
+                            {
+                                BWBitmap.SetPixel(x, y, p);//можно объединить
+                            }
+                        }
                     }
                 }
             }
-
+            
             pB_mono.Image = new Bitmap(BWBitmap);
 
             BWBitmap.Dispose();
@@ -208,7 +221,7 @@ namespace ColoredToMono
             }
 
             b_prev.Enabled = true;
-            pB_mono.ImageLocation = fileNames[fNCount];
+            //pB_mono.ImageLocation = fileNames[fNCount];
             l_fileName.Text = safeFileNames[fNCount];
             ColoredToBW(fileNames[fNCount]);
         }
@@ -225,7 +238,7 @@ namespace ColoredToMono
                 b_prev.Enabled = true;
             }
 
-            pB_mono.ImageLocation = fileNames[fNCount];
+            //pB_mono.ImageLocation = fileNames[fNCount];
             l_fileName.Text = safeFileNames[fNCount];
             ColoredToBW(fileNames[fNCount]);
         }
@@ -268,7 +281,24 @@ namespace ColoredToMono
 
         private void NUpD_lavel_ValueChanged(object sender, EventArgs e)
         {
-            ColoredToBW(pB_mono.ImageLocation, (byte)NUpD_lavel.Value);
+            ColoredToBW(fileNames[fNCount]);
+        }
+
+        private void b_prev_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (--fNCount == 0)
+            {
+                b_prev.Enabled = false;
+            }
+            else
+            {
+                b_next.Enabled = true;
+                b_prev.Enabled = true;
+            }
+
+            //pB_mono.ImageLocation = fileNames[fNCount];
+            l_fileName.Text = safeFileNames[fNCount];
+            ColoredToBW(fileNames[fNCount]);
         }
     }
 }

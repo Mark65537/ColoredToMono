@@ -46,6 +46,7 @@
             this.b_prev = new System.Windows.Forms.Button();
             this.NUpD_lavel = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
+            this.b_exportAll = new System.Windows.Forms.Button();
             this.cMS_fotPicBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pB_mono)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUpD_lavel)).BeginInit();
@@ -100,7 +101,7 @@
             // 
             // b_export
             // 
-            this.b_export.Location = new System.Drawing.Point(293, 11);
+            this.b_export.Location = new System.Drawing.Point(257, 11);
             this.b_export.Name = "b_export";
             this.b_export.Size = new System.Drawing.Size(75, 23);
             this.b_export.TabIndex = 2;
@@ -121,7 +122,7 @@
             // 
             // b_openImages
             // 
-            this.b_openImages.Location = new System.Drawing.Point(189, 11);
+            this.b_openImages.Location = new System.Drawing.Point(170, 11);
             this.b_openImages.Name = "b_openImages";
             this.b_openImages.Size = new System.Drawing.Size(81, 23);
             this.b_openImages.TabIndex = 4;
@@ -145,7 +146,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(374, 11);
+            this.label1.Location = new System.Drawing.Point(418, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 20);
             this.label1.TabIndex = 5;
@@ -155,7 +156,7 @@
             // 
             this.l_time.AutoSize = true;
             this.l_time.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.l_time.Location = new System.Drawing.Point(419, 12);
+            this.l_time.Location = new System.Drawing.Point(463, 41);
             this.l_time.Name = "l_time";
             this.l_time.Size = new System.Drawing.Size(21, 20);
             this.l_time.TabIndex = 6;
@@ -182,6 +183,7 @@
             this.b_prev.Text = "←";
             this.b_prev.UseVisualStyleBackColor = true;
             this.b_prev.Click += new System.EventHandler(this.b_prev_Click);
+            this.b_prev.MouseDown += new System.Windows.Forms.MouseEventHandler(this.b_prev_MouseDown);
             // 
             // NUpD_lavel
             // 
@@ -210,6 +212,16 @@
             this.label2.TabIndex = 8;
             this.label2.Text = "lavel";
             // 
+            // b_exportAll
+            // 
+            this.b_exportAll.Location = new System.Drawing.Point(337, 11);
+            this.b_exportAll.Name = "b_exportAll";
+            this.b_exportAll.Size = new System.Drawing.Size(75, 23);
+            this.b_exportAll.TabIndex = 2;
+            this.b_exportAll.Text = "Export All";
+            this.b_exportAll.UseVisualStyleBackColor = true;
+            this.b_exportAll.Click += new System.EventHandler(this.b_export_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -223,10 +235,11 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.b_openImages);
             this.Controls.Add(this.l_fileName);
+            this.Controls.Add(this.b_exportAll);
             this.Controls.Add(this.b_export);
             this.Controls.Add(this.pB_mono);
             this.Name = "Form1";
-            this.Text = "ColoredToMono";
+            this.Text = "ColoredToMono ";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.cMS_fotPicBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pB_mono)).EndInit();
@@ -254,6 +267,7 @@
         private System.Windows.Forms.ToolStripMenuItem TSMI_zoom;
         private System.Windows.Forms.NumericUpDown NUpD_lavel;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button b_exportAll;
     }
 }
 
